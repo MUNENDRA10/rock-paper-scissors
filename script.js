@@ -1,4 +1,3 @@
-// DOM elements
 const btnRules = document.querySelector(".rules-btn");
 const btnClose = document.querySelector(".close-btn");
 const modalRules = document.querySelector(".modal");
@@ -12,11 +11,9 @@ const playAgainBtn = document.querySelector(".play-again");
 const nextBtn = document.querySelector(".next-btn");
 const scoreNumber = document.querySelector(".pcscore");
 const userScoreNumber = document.querySelector(".yourscore");
-const hurrayMessage = document.getElementById("hurrayMessage");
-const hurrayPage = document.getElementById("hurrayPage");
-const hurrayPlayAgainBtn = document.getElementById("hurrayPlayAgain");
 
-// Choices and scores
+
+
 const CHOICES = [
   {
     name: "paper",
@@ -34,7 +31,8 @@ const CHOICES = [
 let userScore = getStoredUserScore() || 0;
 let pcScore = getStoredPcScore() || 0;
 
-// Functions for managing scores
+
+
 function getStoredUserScore() {
   return parseInt(localStorage.getItem("userScore")) || 0;
 }
@@ -56,6 +54,8 @@ function updateScoreDisplay() {
   scoreNumber.innerText = pcScore;
 }
 
+
+
 function keepScore(point, winner) {
   if (winner === "user") {
     userScore += point;
@@ -69,7 +69,8 @@ function keepScore(point, winner) {
   updateScoreDisplay();
 }
 
-// Game Logic
+
+
 choiceButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const choiceName = button.dataset.choice;
@@ -89,20 +90,41 @@ function aiChoose() {
   return CHOICES[rand];
 }
 
+
+
 function displayResults(results) {
-  resultDivs.forEach((resultDiv, idx) => {
+  const basePath = window.location.href.replace("index.html", "");
+  resultDivs.forEach((resultDiv, ex) => {
     setTimeout(() => {
       resultDiv.innerHTML = `
-        <div class="choice ${results[idx].name}">
-          <img src="images/icon-${results[idx].name}.png" alt="${results[idx].name}" />
+        <div class="choice ${results[ex].name}">
+          <img src="${basePath}images/icon-${results[ex].name}.png" alt="${results[ex].name}" />
         </div>
       `;
-    }, idx * 100);
-  }); 
+    }, ex * 100);
+  });
 
   gameDiv.classList.toggle("hidden");
   resultsDiv.classList.toggle("hidden");
 }
+
+
+// function displayResults(results) {
+//   resultDivs.forEach((resultDiv, ex) => {
+//     setTimeout(() => {
+//       resultDiv.innerHTML = `
+//         <div class="choice ${results[ex].name}">
+//           <img src="images/icon-${results[ex].name}.png" alt="${results[ex].name}" />
+//         </div>
+//       `;
+//     }, ex * 100);
+//   }); 
+
+//   gameDiv.classList.toggle("hidden");
+//   resultsDiv.classList.toggle("hidden");
+// }
+
+
 
 function displayWinner(results) {
   setTimeout(() => {
@@ -115,7 +137,6 @@ function displayWinner(results) {
       keepScore(1, "user");
       nextBtn.classList.remove("hidden");
       positionButtonsForWin();
-      // showHurrayPage();
     } else if (pcWins) {
       resultText.innerHTML = "You lost<br><p class='against-pc'>Against pc</p>";
       resultDivs[1].classList.toggle("winner");
@@ -137,7 +158,8 @@ function isWinner(results) {
   return results[0].beats === results[1].name;
 }
 
-// Play Again or Replay
+
+
 playAgainBtn.addEventListener("click", () => {
   gameDiv.classList.toggle("hidden");
   resultsDiv.classList.toggle("hidden");
@@ -151,7 +173,6 @@ playAgainBtn.addEventListener("click", () => {
   resultWinner.classList.toggle("hidden");
   resultsDiv.classList.toggle("show-winner");
 });
-
 
 
 
@@ -173,10 +194,6 @@ document.querySelector('.play-again').addEventListener('click', function() {
 
 
 
-
-
-
-// Show/Hide Rules
 btnRules.addEventListener("click", () => {
   modalRules.classList.toggle("show-modal");
 });
@@ -184,17 +201,15 @@ btnRules.addEventListener("click", () => {
 btnClose.addEventListener("click", () => {
   modalRules.classList.toggle("show-modal");
 });
-
-// Initial update of the displayed scores
 updateScoreDisplay();
 
-// Prevent animation on load
 setTimeout(() => {
   document.body.classList.remove("first");
 }, 500);
 
+
+
 function positionButtonsForWin() {
-  // Adjust the styles of the Next and Rules buttons after winning
   nextBtn.style.position = "absolute";
   nextBtn.style.bottom = "1.5rem";
   nextBtn.style.right = "2rem";

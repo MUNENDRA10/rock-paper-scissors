@@ -98,7 +98,7 @@ function displayResults(results) {
     setTimeout(() => {
       resultDiv.innerHTML = `
         <div class="choice ${results[ex].name}">
-          <img src="${basePath}images/icon-${results[ex].name}.png" alt="${results[ex].name}" />
+          <img src="${basePath}Images/icon-${results[ex].name}.png" alt="${results[ex].name}" />
         </div>
       `;
     }, ex * 100);
@@ -109,20 +109,6 @@ function displayResults(results) {
 }
 
 
-// function displayResults(results) {
-//   resultDivs.forEach((resultDiv, ex) => {
-//     setTimeout(() => {
-//       resultDiv.innerHTML = `
-//         <div class="choice ${results[ex].name}">
-//           <img src="images/icon-${results[ex].name}.png" alt="${results[ex].name}" />
-//         </div>
-//       `;
-//     }, ex * 100);
-//   }); 
-
-//   gameDiv.classList.toggle("hidden");
-//   resultsDiv.classList.toggle("hidden");
-// }
 
 
 
